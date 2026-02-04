@@ -1,0 +1,181 @@
+/* CareTaker Match - Design System Tokens */
+
+:root {
+  /* Primary - Teal (trust, medical, calm) */
+  --color-primary: #0D7377;
+  --color-primary-light: #14A3A8;
+  --color-primary-dark: #095456;
+  
+  /* Secondary - Warm gray */
+  --color-secondary: #4A5568;
+  --color-secondary-light: #718096;
+  --color-secondary-dark: #2D3748;
+  
+  /* Accent - Coral (warmth, action) */
+  --color-accent: #E85D4C;
+  --color-accent-light: #FC8181;
+  --color-accent-dark: #C53030;
+  
+  /* Semantic */
+  --color-success: #38A169;
+  --color-warning: #D69E2E;
+  --color-error: #E53E3E;
+  --color-info: #3182CE;
+  
+  /* Neutrals */
+  --color-white: #FFFFFF;
+  --color-gray-50: #F7FAFC;
+  --color-gray-100: #EDF2F7;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E0;
+  --color-gray-400: #A0AEC0;
+  --color-gray-500: #718096;
+  --color-gray-600: #4A5568;
+  --color-gray-700: #2D3748;
+  --color-gray-800: #1A202C;
+  --color-gray-900: #171923;
+  
+  /* Background */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F7FAFC;
+  --color-bg-dark: #1A202C;
+
+  /* Selection States */
+  --color-selected-bg: #E6FFFA;
+  --color-selected-border: #0D7377;
+  --color-hover-bg: #F0FFF4;
+  --color-focus-ring: #0D7377;
+
+  /* Typography */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Font Sizes (Elderly-Optimized) */
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-base: 20px;
+  --font-size-lg: 24px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
+  --font-size-4xl: 48px;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Layout */
+  --max-content-width: 600px;
+  --content-padding: 32px;
+  --nav-height: 80px;
+  
+  /* Safe areas (iPad) */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-800);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+  isolation: isolate;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* iOS tap highlight removal */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-width: 1024px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}

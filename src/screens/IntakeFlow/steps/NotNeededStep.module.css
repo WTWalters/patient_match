@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--content-padding);
+  background: var(--color-bg-secondary);
+}
+
+.content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.icon {
+  margin-bottom: var(--space-8);
+}
+
+.checkIcon {
+  width: 100px;
+  height: 100px;
+  color: var(--color-success);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-800);
+  margin-bottom: var(--space-6);
+}
+
+.message {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+}
+
+.instruction {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-10);
+}
+
+.actions {
+  margin-top: var(--space-8);
+}
