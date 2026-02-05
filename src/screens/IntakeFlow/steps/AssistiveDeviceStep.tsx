@@ -1,10 +1,10 @@
 import React from 'react';
 import { OptionCard, StepContainer, StepNavigation } from '../../../components';
-import { PatientIntake, AssistiveDevice } from '../../../types';
+import { IntakeData, AssistiveDevice } from '../../../types';
 
 interface AssistiveDeviceStepProps {
-  data: Partial<PatientIntake>;
-  onNext: (data: Partial<PatientIntake>) => void;
+  data: Partial<IntakeData>;
+  onNext: (data: Partial<IntakeData>) => void;
   onBack: () => void;
 }
 

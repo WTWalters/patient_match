@@ -11,7 +11,6 @@ interface ConsentStepProps {
 }
 
 export const ConsentStep: React.FC<ConsentStepProps> = ({
-  data,
   onUpdate,
   onNext,
   onBack,
