@@ -1,52 +1,50 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PatientIntake, createEmptyIntake } from '../../types';
-
-// Step components
+import { ProgressBar } from '../../components';
+import { IntakeData, initialIntakeData } from '../../types';
 import { FamilySupportStep } from './steps/FamilySupportStep';
 import { NotNeededStep } from './steps/NotNeededStep';
 import { MobilityStep } from './steps/MobilityStep';
 import { DemographicsStep } from './steps/DemographicsStep';
-import { HealthFactorsStep } from './steps/HealthFactorsStep';
-import { ReciprocityStep } from './steps/ReciprocityStep';
+import { HealthStep } from './steps/HealthStep';
+import { CapabilityStep } from './steps/CapabilityStep';
 import { ContactStep } from './steps/ContactStep';
 import { ConsentStep } from './steps/ConsentStep';
-import { CompletionStep } from './steps/CompletionStep';
+import { CompleteStep } from './steps/CompleteStep';
+import styles from './IntakeFlow.module.css';
 
 type StepId = 
   | 'family_support'
   | 'not_needed'
   | 'mobility'
   | 'demographics'
-  | 'health_factors'
-  | 'reciprocity'
+  | 'health'
+  | 'capability'
   | 'contact'
   | 'consent'
-  | 'completion';
+  | 'complete';
 
 const STEP_ORDER: StepId[] = [
   'family_support',
   'mobility',
   'demographics',
-  'health_factors',
-  'reciprocity',
+  'health',
+  'capability',
   'contact',
   'consent',
-  'completion',
+  'complete',
 ];
 
 export const IntakeFlow: React.FC = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<StepId>('family_support');
-  const [data, setData] = useState<PatientIntake>(createEmptyIntake());
+  const [data, setData] = useState<IntakeData>(initialIntakeData);
 
-  const updateData = (updates: Partial<PatientIntake>) => {
-    setData(prev => ({ ...prev, ...updates }));
-  };
+  const currentStepIndex = STEP_ORDER.indexOf(currentStep);
+  const totalSteps = STEP_ORDER.length - 1; // Don't count 'complete' in progress
 
-  const getStepIndex = () => {
-    const idx = STEP_ORDER.indexOf(currentStep);
-    return idx >= 0 ? idx + 1 : 1;
+  const updateData = (partial: Partial<IntakeData>) => {
+    setData(prev => ({ ...prev, ...partial }));
   };
 
   const goToStep = (stepId: StepId) => {
@@ -54,81 +52,125 @@ export const IntakeFlow: React.FC = () => {
   };
 
   const goNext = () => {
-    const currentIndex = STEP_ORDER.indexOf(currentStep);
-    if (currentIndex < STEP_ORDER.length - 1) {
-      setCurrentStep(STEP_ORDER[currentIndex + 1]);
+    const nextIndex = currentStepIndex + 1;
+    if (nextIndex < STEP_ORDER.length) {
+      setCurrentStep(STEP_ORDER[nextIndex]);
     }
   };
 
   const goBack = () => {
-    const currentIndex = STEP_ORDER.indexOf(currentStep);
-    if (currentIndex > 0) {
-      setCurrentStep(STEP_ORDER[currentIndex - 1]);
+    if (currentStepIndex > 0) {
+      setCurrentStep(STEP_ORDER[currentStepIndex - 1]);
     } else {
       navigate('/');
     }
   };
 
-  const handleFamilySupportAnswer = (hasSupport: boolean) => {
+  const handleFamilySupport = (hasSupport: boolean) => {
     updateData({ hasFamilySupport: hasSupport });
     if (hasSupport) {
-      setCurrentStep('not_needed');
+      goToStep('not_needed');
     } else {
       goNext();
     }
   };
 
-  const handleComplete = () => {
-    // In production, this would save to backend
-    console.log('Intake completed:', data);
-    setCurrentStep('completion');
-  };
-
-  const handleReset = () => {
-    setData(createEmptyIntake());
-    setCurrentStep('family_support');
-    navigate('/');
-  };
-
-  // Render current step
   const renderStep = () => {
-    const stepProps = {
-      data,
-      updateData,
-      onNext: goNext,
-      onBack: goBack,
-      currentStep: getStepIndex(),
-      totalSteps: STEP_ORDER.length - 1, // Exclude completion from count
-    };
-
     switch (currentStep) {
       case 'family_support':
         return (
-          <FamilySupportStep 
-            {...stepProps} 
-            onAnswer={handleFamilySupportAnswer}
+          <FamilySupportStep
+            onSelect={handleFamilySupport}
+            onBack={goBack}
           />
         );
+      
       case 'not_needed':
-        return <NotNeededStep onReset={handleReset} />;
+        return <NotNeededStep />;
+      
       case 'mobility':
-        return <MobilityStep {...stepProps} />;
+        return (
+          <MobilityStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
       case 'demographics':
-        return <DemographicsStep {...stepProps} />;
-      case 'health_factors':
-        return <HealthFactorsStep {...stepProps} />;
-      case 'reciprocity':
-        return <ReciprocityStep {...stepProps} />;
+        return (
+          <DemographicsStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
+      case 'health':
+        return (
+          <HealthStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
+      case 'capability':
+        return (
+          <CapabilityStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
       case 'contact':
-        return <ContactStep {...stepProps} />;
+        return (
+          <ContactStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
       case 'consent':
-        return <ConsentStep {...stepProps} onComplete={handleComplete} />;
-      case 'completion':
-        return <CompletionStep onReset={handleReset} patientName={data.name} />;
+        return (
+          <ConsentStep
+            data={data}
+            onUpdate={updateData}
+            onNext={goNext}
+            onBack={goBack}
+          />
+        );
+      
+      case 'complete':
+        return <CompleteStep data={data} />;
+      
       default:
         return null;
     }
   };
 
-  return renderStep();
+  const showProgress = currentStep !== 'not_needed' && currentStep !== 'complete';
+
+  return (
+    <div className={styles.container}>
+      {showProgress && (
+        <div className={styles.progressArea}>
+          <ProgressBar 
+            current={Math.min(currentStepIndex + 1, totalSteps)} 
+            total={totalSteps} 
+          />
+        </div>
+      )}
+      <div className={styles.stepArea}>
+        {renderStep()}
+      </div>
+    </div>
+  );
 };

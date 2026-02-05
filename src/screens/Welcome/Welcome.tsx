@@ -10,55 +10,43 @@ export const Welcome: React.FC = () => {
     navigate('/intake');
   };
 
-  const handleProviderAccess = () => {
-    navigate('/provider');
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.logo}>
-          <svg viewBox="0 0 64 64" fill="none" className={styles.logoIcon}>
-            <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="3" />
-            <path
-              d="M20 32C20 25.373 25.373 20 32 20C38.627 20 44 25.373 44 32"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            <path
-              d="M26 38C26 34.686 28.686 32 32 32C35.314 32 38 34.686 38 38"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            <circle cx="32" cy="26" r="4" fill="currentColor" />
-          </svg>
+          <span className={styles.logoIcon}>🤝</span>
         </div>
         
         <h1 className={styles.title}>CareTaker Match</h1>
+        
         <p className={styles.subtitle}>
-          Connecting patients for mutual care after surgery
+          Connecting patients for post-surgery care support
         </p>
 
-        <div className={styles.actions}>
-          <Button onClick={handleStart} fullWidth>
-            Start Patient Intake
+        <div className={styles.description}>
+          <p>
+            This short questionnaire will help us understand if you might 
+            benefit from being matched with another patient for mutual 
+            care support after your surgery.
+          </p>
+          <p>
+            It only takes about 5 minutes to complete.
+          </p>
+        </div>
+
+        <div className={styles.action}>
+          <Button onClick={handleStart} size="large">
+            Get Started
           </Button>
         </div>
 
-        <button 
-          className={styles.providerLink}
-          onClick={handleProviderAccess}
-        >
-          Healthcare Provider Access →
-        </button>
+        <p className={styles.notice}>
+          🔒 Your information is kept private and secure
+        </p>
       </div>
 
       <footer className={styles.footer}>
-        <p className={styles.disclaimer}>
-          <strong>DEMO VERSION</strong> — Not for clinical use
-        </p>
+        <p className={styles.demo}>DEMO VERSION - NOT FOR CLINICAL USE</p>
       </footer>
     </div>
   );

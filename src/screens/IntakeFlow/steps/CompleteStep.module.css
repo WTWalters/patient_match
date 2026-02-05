@@ -29,7 +29,7 @@
 .title {
   font-size: var(--font-size-3xl);
   font-weight: 700;
-  color: var(--color-gray-800);
+  color: var(--color-primary);
   margin-bottom: var(--space-6);
 }
 
@@ -41,7 +41,7 @@
 }
 
 .instruction {
-  margin-top: var(--space-10);
+  margin-top: var(--space-8);
   padding: var(--space-6);
   background: var(--color-gray-100);
   border-radius: 12px;
@@ -51,4 +51,43 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--color-gray-700);
+}
+
+.summary {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  background: var(--color-gray-50);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.summaryTitle {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-4);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.summaryRow:last-child {
+  border-bottom: none;
+}
+
+.summaryLabel {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-600);
+}
+
+.summaryValue {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-gray-800);
 }

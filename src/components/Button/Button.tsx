@@ -25,7 +25,6 @@ export const Button: React.FC<ButtonProps> = ({
     styles[variant],
     styles[size],
     fullWidth ? styles.fullWidth : '',
-    disabled ? styles.disabled : '',
   ].filter(Boolean).join(' ');
 
   return (

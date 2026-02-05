@@ -1,35 +1,42 @@
 import React from 'react';
-import { StepContainer, OptionCard } from '../../../components';
-import { PatientIntake } from '../../../types';
+import { StepContainer, StepNavigation, OptionCard } from '../../../components';
 
 interface FamilySupportStepProps {
-  data: PatientIntake;
-  onAnswer: (hasSupport: boolean) => void;
+  onSelect: (hasSupport: boolean) => void;
   onBack: () => void;
-  currentStep: number;
-  totalSteps: number;
 }
 
 export const FamilySupportStep: React.FC<FamilySupportStepProps> = ({
-  onAnswer,
+  onSelect,
   onBack,
-  currentStep,
-  totalSteps,
 }) => {
   return (
-    <StepContainer
-      currentStep={currentStep}
-      totalSteps={totalSteps}
-      question="Do you have friends or family that can care for you after surgery?"
-      showBack={true}
-      onBack={onBack}
-    >
-      <OptionCard onClick={() => onAnswer(true)}>
-        Yes, I have someone to help me
-      </OptionCard>
-      <OptionCard onClick={() => onAnswer(false)}>
-        No, I don't have anyone available
-      </OptionCard>
-    </StepContainer>
+    <>
+      <StepContainer
+        question="Do you have friends or family that can care for you after surgery?"
+        subtext="This helps us understand if you might benefit from our care matching program."
+      >
+        <OptionCard
+          selected={false}
+          onClick={() => onSelect(true)}
+        >
+          Yes, I have support available
+        </OptionCard>
+        
+        <OptionCard
+          selected={false}
+          onClick={() => onSelect(false)}
+        >
+          No, I don't have support available
+        </OptionCard>
+      </StepContainer>
+
+      <StepNavigation
+        onBack={onBack}
+        onNext={() => {}}
+        nextDisabled={true}
+        showBack={true}
+      />
+    </>
   );
 };

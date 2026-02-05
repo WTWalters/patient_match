@@ -1,6 +1,25 @@
-// Patient Intake Data Model
+export type WalkingDistance = 'more_than_2_blocks' | '1_block' | 'less_than_1_block';
 
-export interface PatientIntake {
+export type AssistiveDevice = 'none' | 'cane' | 'walker';
+
+export type AgeRange = 'under_65' | '65_to_75' | 'over_75';
+
+export type Gender = 'male' | 'female';
+
+export type AlcoholConsumption = 'none' | '2_or_less' | '6_or_less' | 'more_than_6';
+
+export type DrivingAbility = 'yes' | 'no' | 'daytime_only';
+
+export type InterestLevel = 'both' | 'give_only' | 'receive_only' | 'not_interested';
+
+export type ProviderAssessment = 'caregiver' | 'care_receiver' | 'both' | 'neither';
+
+export interface Address {
+  line1: string;
+  line2?: string;
+}
+
+export interface IntakeData {
   // Screening
   hasFamilySupport: boolean | null;
   
@@ -15,7 +34,7 @@ export interface PatientIntake {
   
   // Health
   smoker: boolean | null;
-  alcoholPerDay: AlcoholLevel | null;
+  alcoholPerDay: AlcoholConsumption | null;
   recreationalDrugs: boolean | null;
   
   // Capability
@@ -24,10 +43,7 @@ export interface PatientIntake {
   interestLevel: InterestLevel | null;
   
   // Contact
-  address: {
-    line1: string;
-    line2: string;
-  };
+  address: Address;
   phone: string;
   email: string;
   
@@ -35,26 +51,13 @@ export interface PatientIntake {
   consentGiven: boolean;
   signatureData: string | null;
   consentTimestamp: Date | null;
+  
+  // Provider Review
+  providerAssessment: ProviderAssessment | null;
+  providerReviewedAt: Date | null;
 }
 
-export type WalkingDistance = 'more_than_2_blocks' | '1_block' | 'less_than_1_block';
-
-export type AssistiveDevice = 'none' | 'cane' | 'walker';
-
-export type AgeRange = 'under_65' | '65_to_75' | 'over_75';
-
-export type Gender = 'male' | 'female';
-
-export type AlcoholLevel = 'none' | '2_or_less' | '6_or_less' | 'more_than_6';
-
-export type DrivingAbility = 'yes' | 'no' | 'daytime_only';
-
-export type InterestLevel = 'both' | 'give_only' | 'receive_only' | 'not_interested';
-
-export type ProviderAssessment = 'caregiver' | 'care_receiver' | 'both' | 'neither';
-
-// Initial empty state
-export const initialIntakeData: PatientIntake = {
+export const initialIntakeData: IntakeData = {
   hasFamilySupport: null,
   walkingDistance: null,
   assistiveDevice: null,
@@ -67,13 +70,12 @@ export const initialIntakeData: PatientIntake = {
   canDrive: null,
   willingToGiveCare: null,
   interestLevel: null,
-  address: {
-    line1: '',
-    line2: '',
-  },
+  address: { line1: '', line2: '' },
   phone: '',
   email: '',
   consentGiven: false,
   signatureData: null,
   consentTimestamp: null,
+  providerAssessment: null,
+  providerReviewedAt: null,
 };

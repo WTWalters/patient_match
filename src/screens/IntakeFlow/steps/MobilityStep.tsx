@@ -1,85 +1,88 @@
 import React, { useState } from 'react';
-import { StepContainer, OptionCard } from '../../../components';
-import { PatientIntake, WalkingDistance, AssistiveDevice } from '../../../types';
+import { StepContainer, StepNavigation, OptionCard } from '../../../components';
+import { IntakeData, WalkingDistance, AssistiveDevice } from '../../../types';
 import styles from './MobilityStep.module.css';
 
 interface MobilityStepProps {
-  data: PatientIntake;
-  updateData: (data: Partial<PatientIntake>) => void;
+  data: IntakeData;
+  onUpdate: (partial: Partial<IntakeData>) => void;
   onNext: () => void;
   onBack: () => void;
-  currentStep: number;
-  totalSteps: number;
 }
 
 const WALKING_OPTIONS: { value: WalkingDistance; label: string }[] = [
   { value: 'more_than_2_blocks', label: 'More than 2 blocks' },
-  { value: '1_block', label: 'About 1 block' },
+  { value: '1_block', label: '1 block' },
   { value: 'less_than_1_block', label: 'Less than 1 block' },
 ];
 
 const DEVICE_OPTIONS: { value: AssistiveDevice; label: string }[] = [
-  { value: 'none', label: 'No, I walk without assistance' },
+  { value: 'none', label: 'No' },
   { value: 'cane', label: 'Cane or walking stick' },
   { value: 'walker', label: 'Walker' },
 ];
 
 export const MobilityStep: React.FC<MobilityStepProps> = ({
   data,
-  updateData,
+  onUpdate,
   onNext,
   onBack,
-  currentStep,
-  totalSteps,
 }) => {
-  const [walking, setWalking] = useState<WalkingDistance | null>(data.walkingDistance);
-  const [device, setDevice] = useState<AssistiveDevice | null>(data.assistiveDevice);
+  const [walkingDistance, setWalkingDistance] = useState<WalkingDistance | null>(
+    data.walkingDistance
+  );
+  const [assistiveDevice, setAssistiveDevice] = useState<AssistiveDevice | null>(
+    data.assistiveDevice
+  );
 
-  const canProceed = walking !== null && device !== null;
+  const canProceed = walkingDistance !== null && assistiveDevice !== null;
 
   const handleNext = () => {
-    updateData({ walkingDistance: walking, assistiveDevice: device });
-    onNext();
+    if (canProceed) {
+      onUpdate({ walkingDistance, assistiveDevice });
+      onNext();
+    }
   };
 
   return (
-    <StepContainer
-      currentStep={currentStep}
-      totalSteps={totalSteps}
-      question="Let's understand your mobility"
-      onNext={handleNext}
-      onBack={onBack}
-      nextDisabled={!canProceed}
-    >
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>How far can you walk?</h2>
-        <div className={styles.options}>
-          {WALKING_OPTIONS.map(option => (
-            <OptionCard
-              key={option.value}
-              selected={walking === option.value}
-              onClick={() => setWalking(option.value)}
-            >
-              {option.label}
-            </OptionCard>
-          ))}
+    <>
+      <StepContainer question="Let's understand your mobility">
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>How far can you walk?</h2>
+          <div className={styles.options}>
+            {WALKING_OPTIONS.map(option => (
+              <OptionCard
+                key={option.value}
+                selected={walkingDistance === option.value}
+                onClick={() => setWalkingDistance(option.value)}
+              >
+                {option.label}
+              </OptionCard>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Do you use an assistive device to walk?</h2>
-        <div className={styles.options}>
-          {DEVICE_OPTIONS.map(option => (
-            <OptionCard
-              key={option.value}
-              selected={device === option.value}
-              onClick={() => setDevice(option.value)}
-            >
-              {option.label}
-            </OptionCard>
-          ))}
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Do you use an assistive device to walk?</h2>
+          <div className={styles.options}>
+            {DEVICE_OPTIONS.map(option => (
+              <OptionCard
+                key={option.value}
+                selected={assistiveDevice === option.value}
+                onClick={() => setAssistiveDevice(option.value)}
+              >
+                {option.label}
+              </OptionCard>
+            ))}
+          </div>
         </div>
-      </div>
-    </StepContainer>
+      </StepContainer>
+
+      <StepNavigation
+        onBack={onBack}
+        onNext={handleNext}
+        nextDisabled={!canProceed}
+      />
+    </>
   );
 };

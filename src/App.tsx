@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { IntakeFlow } from './screens/IntakeFlow'
-import { ProviderReview } from './screens/ProviderReview'
-import { Welcome } from './screens/Welcome'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { IntakeFlow } from './screens/IntakeFlow';
+import { ProviderReview } from './screens/ProviderReview';
+import { Welcome } from './screens/Welcome';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route path="/provider" element={<ProviderReview />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

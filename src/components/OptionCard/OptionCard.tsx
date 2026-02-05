@@ -28,10 +28,7 @@ export const OptionCard: React.FC<OptionCardProps> = ({
       disabled={disabled}
       aria-pressed={selected}
     >
-      <span className={styles.indicator}>
-        {selected && <span className={styles.checkmark}>✓</span>}
-      </span>
-      <span className={styles.content}>{children}</span>
+      {children}
     </button>
   );
 };

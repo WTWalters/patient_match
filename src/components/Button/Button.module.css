@@ -2,17 +2,22 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-family-sans);
-  font-weight: var(--font-weight-semibold);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
+  font-family: var(--font-family-sans);
+  font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  text-decoration: none;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  touch-action: manipulation;
 }
 
-.button:active:not(.disabled) {
+.button:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Sizes */
@@ -34,16 +39,16 @@
   color: var(--color-white);
 }
 
-.primary:hover:not(.disabled) {
+.primary:hover:not(:disabled) {
   background-color: var(--color-primary-dark);
 }
 
 .secondary {
   background-color: var(--color-gray-200);
-  color: var(--color-gray-800);
+  color: var(--color-gray-700);
 }
 
-.secondary:hover:not(.disabled) {
+.secondary:hover:not(:disabled) {
   background-color: var(--color-gray-300);
 }
 
@@ -53,16 +58,11 @@
   border: 2px solid var(--color-primary);
 }
 
-.outline:hover:not(.disabled) {
-  background-color: var(--color-selected-bg);
+.outline:hover:not(:disabled) {
+  background-color: var(--color-gray-50);
 }
 
-/* States */
+/* Full width */
 .fullWidth {
   width: 100%;
-}
-
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }

@@ -4,19 +4,14 @@ import styles from './ProgressBar.module.css';
 interface ProgressBarProps {
   current: number;
   total: number;
-  showLabel?: boolean;
 }
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({
-  current,
-  total,
-  showLabel = true,
-}) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
   const percentage = Math.round((current / total) * 100);
 
   return (
     <div className={styles.container}>
-      <div className={styles.track}>
+      <div className={styles.bar}>
         <div 
           className={styles.fill} 
           style={{ width: `${percentage}%` }}
@@ -26,11 +21,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
           aria-valuemax={total}
         />
       </div>
-      {showLabel && (
-        <span className={styles.label}>
-          Step {current} of {total}
-        </span>
-      )}
+      <span className={styles.label}>
+        Step {current} of {total}
+      </span>
     </div>
   );
 };

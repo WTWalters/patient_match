@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       manifest: {
         name: 'CareTaker Match',
         short_name: 'CareTaker',
@@ -16,8 +16,7 @@ export default defineConfig({
         theme_color: '#0D7377',
         background_color: '#ffffff',
         display: 'standalone',
-        orientation: 'any',
-        start_url: '/',
+        orientation: 'portrait',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -28,12 +27,6 @@ export default defineConfig({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
           }
         ]
       }
@@ -41,16 +34,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@screens': path.resolve(__dirname, './src/screens'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@types': path.resolve(__dirname, './src/types'),
-      '@utils': path.resolve(__dirname, './src/utils')
+      '@': path.resolve(__dirname, './src')
     }
   },
   server: {
-    host: true, // Allows access from iPad on same network
-    port: 5173
+    host: true,
+    port: 3000
   }
 });
