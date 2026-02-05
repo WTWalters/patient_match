@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+buildCommand = "npm ci && npm run build"
+startCommand = "npm run preview"
+
+[[services.variables]]
+name = "NODE_ENV"
+value = "production"
